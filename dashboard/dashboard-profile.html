@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./css/main-css.css" />
+    <link rel="stylesheet" href="./css/profile.css" />
+    <title>Profile</title>
+  </head>
+  <body>
+    <section id="container">
+      <!-- ================= Start Of Aside ================= -->
+      <aside>
+        <div class="top">
+          <div class="logo">
+            <h2>RA<span class="danger">KNA</span></h2>
+          </div>
+          <div class="close" id="close-btn">
+            <span class="fas fa-x"></span>
+          </div>
+        </div>
+        <div class="sidebar">
+          <a href="../u-dashboard.html" class="sidebar-btns"
+            ><span class="fas fa-chart-line"></span>
+            <h3>Dashboard</h3></a
+          >
+          <a href="./parking.html" class="sidebar-btns">
+            <span class="fas fa-signal"></span>
+            <h3>Parking</h3></a
+          >
+
+          <a href="./reservations.html" class="sidebar-btns"
+            ><span class="fas fa-calendar"></span>
+            <h3>Reservations</h3></a
+          >
+          <a href="#" class="sidebar-btns active"
+            ><span class="fas fa-user"></span>
+            <h3>Profile</h3></a
+          >
+          <a href="#" id="logout"
+            ><span class="fas fa-power-off"></span>
+            <h3>Log Out</h3></a
+          >
+        </div>
+      </aside>
+      <section class="profile-content">
+        <h1>Profile</h1>
+        <form>
+          <div class="left-from">
+            <label for="name">Your Name</label>
+            <input readonly type="text" placeholder="name" id="name" />
+            <label for="email">Email</label>
+            <input readonly type="text" placeholder="email" id="email" />
+            <label for="gender">Gender</label>
+            <input readonly type="text" placeholder="gender" id="gender" />
+            <label for="job">Job</label>
+            <input readonly type="text" placeholder="job" id="job" />
+          </div>
+          <div>
+            <label for="adress">address</label>
+            <input readonly type="text" placeholder="address" id="address" />
+            <label for="age">Age</label>
+            <input readonly type="text" placeholder="age" id="age" />
+            <label for="phone">Phone</label>
+            <input readonly type="text" placeholder="" id="phone" />
+          </div>
+        </form>
+      </section>
+      <!-- ================= End Of Aside ================= -->
+    </section>
+
+    <section class="mobile">
+      <div class="navbar">
+        <button class="fas fa-bars" id="menu-btn"></button>
+        <div class="profile">
+          <div class="info">
+            <p>Hey, <b id="name-user-profile">Daniel</b></p>
+            <small class="text-muted"><span>Supplier</span></small>
+          </div>
+          <div class="profile-photo">
+            <img src="assets/imgs/user-icon.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="profile-info">
+        <form>
+          <label for="name">Your Name</label>
+          <input readonly type="text" placeholder="name" id="name" />
+          <label for="email">Email</label>
+          <input readonly type="text" placeholder="email" id="email" />
+          <label for="gender">Gender</label>
+          <input readonly type="text" placeholder="gender" id="gender" />
+          <label for="job">Job</label>
+          <input readonly type="text" placeholder="job" id="job" />
+          <label for="adress">address</label>
+          <input readonly type="text" placeholder="address" id="address" />
+          <label for="age">Age</label>
+          <input readonly type="text" placeholder="age" id="age" />
+          <label for="phone">Phone</label>
+          <input readonly type="text" placeholder="" id="phone" />
+        </form>
+      </div>
+    </section>
+
+    <section id="navbar-mobile-after-btn">
+      <a class="fas fa-xmark" id="x-btn"></a>
+      <a href="../u-dashboard.html">Dashboard</a>
+      <a href="/dashboard/reservations.html">Reservations</a>
+      <a href="/dashboard/parking.html">Parking</a>
+    </section>
+    <script src="./js/script.js"></script>
+    <script>
+      const profilePage = () => {
+        // checking if we are in profile page or not
+
+        const inputs = document.querySelectorAll("input");
+        fetch(apiProfile, {
+          method: "GET",
+          headers: {
+            Authorization: `bearer ${localStorage.getItem("token")}`, // Fix the syntax here
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            Object.keys(data.supplier).forEach((key) => {
+              const input = document.getElementById(key); // Get input element by id
+              if (input) {
+                input.placeholder = data.supplier[key]; // Set key as placeholder
+              }
+            });
+          });
+      };
+      window.onload = profilePage();
+    </script>
+  </body>
+</html>

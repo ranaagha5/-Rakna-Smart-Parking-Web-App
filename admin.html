@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin | Dashboard</title>
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="./admin-assets/css/style.css" />
+  </head>
+
+  <body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="#">
+              <span class="title" style="font-weight: 700">RAKNA</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="home-outline"></ion-icon>
+              </span>
+              <span class="title">Dashboard</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="people-outline"></ion-icon>
+              </span>
+              <span class="title">Customers</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="help-outline"></ion-icon>
+              </span>
+              <span class="title">Profits</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="settings-outline"></ion-icon>
+              </span>
+              <span class="title">Payments</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+              </span>
+              <span class="title">Reservations</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="log-out-outline"></ion-icon>
+              </span>
+              <span class="title" id="log-out">Sign Out</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ========================= Main ==================== -->
+      <div class="main">
+        <div class="topbar">
+          <div class="toggle">
+            <ion-icon name="menu-outline"></ion-icon>
+          </div>
+
+          <div class="user">
+            <img src="admin-assets/imgs/customer01.jpg" alt="" />
+          </div>
+        </div>
+
+        <!-- ======================= Cards ================== -->
+        <div class="cardBox">
+          <div class="card">
+            <div>
+              <div class="numbers">$<span id="day-earning-data"></span></div>
+              <div class="cardName">Total Day Profits</div>
+            </div>
+
+            <div class="iconBx">
+              <ion-icon name="cash-outline"></ion-icon>
+            </div>
+          </div>
+          <div class="card">
+            <div>
+              <div class="numbers">$<span id="earning-data"></span></div>
+              <div class="cardName">Total Earning</div>
+            </div>
+
+            <div class="iconBx">
+              <ion-icon name="cash-outline"></ion-icon>
+            </div>
+          </div>
+          <div class="card">
+            <div>
+              <div class="numbers" id="users"></div>
+              <div class="cardName">All Users</div>
+            </div>
+
+            <div class="iconBx">
+              <ion-icon name="eye-outline"></ion-icon>
+            </div>
+          </div>
+
+          <div class="card">
+            <div>
+              <div class="numbers" id="suppliers"></div>
+              <div class="cardName">All Suppliers</div>
+            </div>
+
+            <div class="iconBx">
+              <ion-icon name="eye-outline"></ion-icon>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================ Order Details List ================= -->
+        <div class="recentOrders">
+          <div class="details">
+            <div class="cardHeader">
+              <h2>All Suppliers with parkings</h2>
+              <a href="#" class="btn">View All</a>
+            </div>
+            <div class="suppliers" id="suppliers-container">
+              <div class="supplier supplier-header">
+                <p>ID</p>
+                <p>Parking ID</p>
+                <p>Name</p>
+                <p>Day Profits</p>
+                <p>Total Profits</p>
+                <a href="" class=""></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- See more section -->
+    <section id="see-more-section">
+      <div id="click-close" onclick="closeSeeMore()"></div>
+      <div class="see-more-card">
+        <div class="supplier-choose-parkings">
+          <select type="text" id="choose-parking-id"></select>
+          <button id="btn-to-choose" onclick="getParkingData()">
+            Get Parking Data
+          </button>
+        </div>
+        <button id="close-see-more" onclick="closeSeeMore()">X</button>
+
+        <div class="see-more-header">
+          <button class="header-btn" id="reservation-btn">Reservation</button>
+          <button class="header-btn" onclick="profits()">Profits</button>
+          <button class="header-btn" onclick="payments()">Payments</button>
+        </div>
+        <div class="see-more-body">
+          <div class="body-content">
+            <div class="reservation all-reservation">
+              <h2>All Reservation</h2>
+              <div class="reservation-card">
+                <p>Reservation ID : 1</p>
+                <p>Start Time : 1</p>
+                <p>End Time : 1</p>
+                <p>Prking Duration : 1</p>
+                <p>Prking Duration : 1</p>
+                <p>Discount : 1</p>
+                <p>Status : 1</p>
+                <p>Price Per Hour : 1</p>
+                <p>User ID : 1</p>
+                <p>Car ID : 1</p>
+                <p>Parking ID : 1</p>
+                <p>Parking Slot ID : 1</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- See more section -->
+    <!-- =========== Scripts =========  -->
+   
+      <script src="admin-assets/js/main.js"></script>
+
+    <!-- ====== ionicons ======= -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

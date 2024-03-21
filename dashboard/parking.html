@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./css/reservations.css" />
+    <link rel="stylesheet" href="./css/parking.css" />
+    <title>Parking</title>
+  </head>
+  <body>
+    <section id="container">
+      <div class="sidebar">
+        <div class="top-bar">
+          <a href="../u-dashboard.html" class="sidebar-btns"
+            ><span class="fas fa-chart-line"></span>
+            <h3>Dashboard</h3></a
+          >
+          <a href="#" class="sidebar-btns active">
+            <span class="fas fa-signal"></span>
+            <h3>parking</h3></a
+          >
+          <a href="../dashboard/reservations.html" class="sidebar-btns"
+            ><span class="fas fa-calendar"></span>
+            <h3>Reservations</h3></a
+          >
+          <a href="../dashboard/dashboard-profile.html" class="sidebar-btns"
+            ><span class="fas fa-user"></span>
+            <h3>Profile</h3></a
+          >
+        </div>
+        <a href="#" id="logout"
+          ><span class="fas fa-power-off"></span>
+          <h3>Log Out</h3></a
+        >
+      </div>
+      <div class="page-content-parking" id="page-content-parking"></div>
+    </section>
+
+    <script>
+      const addParkingFunction = () => {
+        // ============= Add New Parking logic ============
+        const errorMsg = document.getElementById("err-msg-add-parking");
+        document
+          .getElementById("btn-add-parking")
+          .addEventListener("click", (e) => {
+            e.preventDefault();
+            const name = document.getElementById("name").value;
+            const latitude = document.getElementById("latitude").value;
+            const longitude = document.getElementById("longitude").value;
+            const number_of_slots =
+              document.getElementById("number_of_slots").value;
+            const number_of_floors =
+              document.getElementById("number_of_floors").value;
+            const price_per_hour =
+              document.getElementById("price_per_hour").value;
+            const data = {
+              name,
+              latitude,
+              longitude,
+              number_of_slots,
+              number_of_floors,
+              price_per_hour,
+            };
+
+            const missingFields = [];
+
+            for (const field in data) {
+              if (!data[field]) {
+                missingFields.push(field);
+                errorMsg.innerText = `All fields are required.`;
+              }
+            }
+
+            if (missingFields.length === 0) {
+              fetch("https://rakna.site/api/supplier/add-parking", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `bearer ${localStorage.getItem("token")}`,
+                },
+                body: JSON.stringify(data),
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  console.log(data);
+                  location.reload();
+                });
+            }
+          });
+        // ============= Add New Parking logic ============
+      };
+      const addParkingInfoFunction = () => {
+        // ============= Total Payments ============
+        fetch("https://rakna.site/api/supplier/total-payments", {
+          method: "GET",
+          headers: {
+            Authorization: `bearer ${localStorage.getItem("token")}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            data.payments.forEach((element) => {
+              document.querySelector(
+                ".total-payments .payments-cards"
+              ).innerHTML += `
+        <div class="payments-card">
+        <p>
+          Id : <span>${element.id}</span>
+        </p>
+        <p>
+          Reservation Id : <span>${element.reservation_id}</span>
+        </p>
+        <p>
+          User Id : <span>${element.user_id}</span>
+        </p>
+        <p>
+          Parking Id : <span>${element.parking_id}</span>
+        </p>
+        <p>
+          Cost : <span>${element.cost}</span>
+        </p>
+      </div>
+
+              `;
+            });
+          });
+
+        // ============= Day Payments ============
+        fetch("https://rakna.site/api/supplier/day-payments", {
+          method: "GET",
+          headers: {
+            Authorization: `bearer ${localStorage.getItem("token")}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            data.payments.forEach((element) => {
+              document.querySelector(
+                ".daily-payments .payments-cards"
+              ).innerHTML += `
+              <div class="payments-card">
+                  <p>
+                    Id : <span>${element.id}</span>
+                  </p>
+                  <p>
+                    Reservation Id : <span>${element.reservation_id}</span>
+                  </p>
+                  <p>
+                    User Id : <span>${element.user_id}</span>
+                  </p>
+                  <p>
+                    Parking Id : <span>${element.parking_id}</span>
+                  </p>
+                  <p>
+                    Cost : <span>${element.cost}</span>
+                  </p>
+              </div>
+              `;
+            });
+          });
+        // ============= Parking info ============
+        fetch("https://rakna.site/api/supplier/parking", {
+          method: "GET",
+          headers: {
+            Authorization: `bearer ${localStorage.getItem("token")}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            data.parkings.forEach((element) => {
+              document.getElementById(
+                "parking-cards"
+              ).innerHTML += `<div class="parking-card">
+                <div class="left">
+                  <h3>id : <span>${element.id}</span></h3>
+                  <h3>name : <span>${element.name}</span></h3>
+                  <h3>credit : <span>${element.credit}</span></h3>
+                  <h3>busy_slots : <span>${element.busy_slots}</span></h3>
+                  <h3>total_rate : <span>${element.total_rate}</span></h3>
+                  </div>
+                  <div class="right">
+                    <h3>number_of_slots : <span>${element.number_of_slots}</span></h3>
+                    <h3>has_free_slot : <span>${element.has_free_slot}</span></h3>
+                    <h3>price_per_hour : <span>${element.price_per_hour}</span></h3>
+                    <h3>latitude : <span>${element.latitude}</span></h3>
+                    <h3>longitude : <span>1${element.longitude}</span></h3>
+                    </div>
+                    </div>`;
+            });
+          });
+      };
+      //check if there is not parking or not
+      const checkParking = () => {
+        fetch("https://rakna.site/api/supplier/parking", {
+          method: "GET",
+          headers: {
+            Authorization: `bearer ${localStorage.getItem("token")}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.status == false) {
+              document.getElementById(
+                "page-content-parking"
+              ).innerHTML = `<div class="add-parking parking-section">
+                <h2>Add a parking to continue</h2>
+                <p id="err-msg-add-parking"></p>
+          <form>
+            <input type="text" id="name" placeholder="Parking Name" />
+            <input type="text" id="latitude" placeholder="Latitude" />
+            <input type="text" id="longitude" placeholder="Longitude" />
+            <input
+              type="text"
+              id="number_of_slots"
+              placeholder="Number of slots"
+            />
+            <input
+              type="text"
+              id="number_of_floors"
+              placeholder="Number of floors"
+            />
+            <input
+              type="text"
+              id="price_per_hour"
+              placeholder="Price per hour"
+            />
+            <button type="button" id="btn-add-parking">Add New Parking</button>
+          </form>
+        </div>`;
+              addParkingFunction();
+            } else {
+              document.getElementById(
+                "page-content-parking"
+              ).innerHTML = `        <div class="add-parking parking-section">
+          <h2>Add a new parking</h2>
+          <p id="err-msg-add-parking"></p>
+          <form>
+            <input type="text" id="name" placeholder="Parking Name" />
+            <input type="text" id="latitude" placeholder="Latitude" />
+            <input type="text" id="longitude" placeholder="Longitude" />
+            <input
+              type="text"
+              id="number_of_slots"
+              placeholder="Number of slots"
+            />
+            <input
+              type="text"
+              id="number_of_floors"
+              placeholder="Number of floors"
+            />
+            <input
+              type="text"
+              id="price_per_hour"
+              placeholder="Price per hour"
+            />
+            <button type="button" id="btn-add-parking">
+              Add New Parking
+            </button>
+          </form>
+        </div>
+        <div class="all-parking parking-section">
+          <h2>All Parkings</h2>
+          <div class="parking-cards" id="parking-cards"></div>
+        </div>
+        <div class="info parking-section">
+          <div class="payments">
+            <div class="daily-payments payments-card-container">
+              <h2>Daily payments</h2>
+              <div class="payments-cards"></div>
+            </div>
+            <div class="total-payments payments-card-container">
+              <h2>Total payments</h2>
+              <div class="payments-cards"></div>
+            </div>
+          </div>
+        </div>`;
+              addParkingInfoFunction();
+              addParkingFunction();
+            }
+          });
+      };
+      checkParking();
+      // fetch("https://rakna.site/api/supplier/total-payments", {
+      //   method: "GET",
+      //   headers: {
+      //     Authorization: `bearer ${localStorage.getItem("token")}`,
+      //   },
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     console.log(data);
+      //   });
+    </script>
+    <script src="./js/script.js"></script>
+  </body>
+</html>

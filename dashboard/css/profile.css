@@ -1,0 +1,134 @@
+body {
+  background-color: #c1c1c1;
+}
+#container {
+  grid-template-columns: 14rem auto;
+}
+.mobile {
+  display: none;
+}
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  margin-top: 12vh;
+  border-radius: 2rem;
+  height: 110vh;
+}
+.profile-content h1 {
+  font-size: 3rem;
+  margin-bottom: 10rem;
+}
+.profile-content form {
+  display: flex;
+  flex-direction: row;
+}
+.left-from {
+  margin-right: 4rem;
+}
+.profile-content div {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.profile-content div label {
+  color: #7380ec;
+  padding-left: 1rem;
+  font-size: 1.5rem;
+}
+.profile-content div input {
+  background-color: #e7e7e7;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  font-size: 2rem;
+  cursor: auto;
+}
+
+@media screen and (max-width: 1024px) {
+  #container {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  aside {
+    width: 9vw;
+  }
+  aside .logo h2 {
+    font-size: 1.5rem;
+  }
+  .profile-content {
+    margin-top: 9vh;
+    padding: 3rem;
+  }
+  .profile-content div input {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #container {
+    padding: 0;
+    margin-top: 0;
+  }
+  aside {
+    display: block;
+    width: 10vw;
+  }
+  aside .logo h2 {
+    font-size: 1.5rem !important;
+  }
+  .profile-content {
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  #container {
+    display: none;
+  }
+  .mobile {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .navbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    gap: 2rem;
+    padding-top: 1rem;
+  }
+  .navbar button {
+    font-size: 2rem;
+    background: none;
+  }
+  .profile {
+    display: flex;
+  }
+  .profile-info {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+  }
+  .profile-info form {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  .profile-info form input {
+    font-size: 1rem;
+    border-radius: 1rem;
+    padding: 15px 15px;
+    background-color: white;
+  }
+}

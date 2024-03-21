@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./dashboard/css/main-css.css" />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <section id="container">
+      <!-- ================= Start Of Aside ================= -->
+      <aside>
+        <div class="top">
+          <div class="logo">
+            <h2>RA<span class="danger">KNA</span></h2>
+          </div>
+          <div class="close" id="close-btn">
+            <span class="fas fa-x"></span>
+          </div>
+        </div>
+        <div class="sidebar">
+          <a href="#" class="sidebar-btns active"
+            ><span class="fas fa-chart-line"></span>
+            <h3>Dashboard</h3></a
+          >
+          <a href="./dashboard/parking.html" class="sidebar-btns">
+            <span class="fas fa-signal"></span>
+            <h3>parking</h3></a
+          >
+          <a href="./dashboard/reservations.html" class="sidebar-btns"
+            ><span class="fas fa-calendar"></span>
+            <h3>Reservations</h3></a
+          >
+          <a href="./dashboard/dashboard-profile.html" class="sidebar-btns"
+            ><span class="fas fa-user"></span>
+            <h3>Profile</h3></a
+          >
+          <a href="#" id="logout"
+            ><span class="fas fa-power-off"></span>
+            <h3>Log Out</h3></a
+          >
+        </div>
+      </aside>
+      <!-- ================= End Of Aside ================= -->
+
+      <!-- ================= Start Of Main ================= -->
+      <main>
+        <h1>Dashboard</h1>
+        <div class="insights">
+          <div class="sales">
+            <span
+              class="fas fa-dollar-sign primary"
+              style="background-color: #7380ec"
+            ></span>
+            <div class="middle">
+              <h3>EARNINGS (DAILY)</h3>
+              <h2><b id="daily"></b> $</h2>
+            </div>
+            <div class="text-muted">Last 24 hours</div>
+          </div>
+          <!-- ================= End Of Daily ================= -->
+          <div class="sales">
+            <span
+              class="fas fa-money-check-dollar danger"
+              style="background-color: #ff7782"
+            ></span>
+            <div class="middle">
+              <h3>EARNINGS (Total)</h3>
+              <h2><b id="monthly-profits"></b> $</h2>
+            </div>
+            <div class="text-muted">All Days</div>
+          </div>
+          <!-- ================= End Of Sales ================= -->
+          <div class="sales">
+            <span class="fas fa-chart-bar"></span>
+            <div class="middle">
+              <h3>PICKED</h3>
+              <h2>$ 4,0001</h2>
+            </div>
+            <div class="text-muted">Last 24 hours</div>
+          </div>
+          <!-- ================= End Of PICKED ================= -->
+          <div class="sales">
+            <span class="fas fa-chart-bar"></span>
+            <div class="middle">
+              <h3>FREE</h3>
+              <h2>$ 4,0001</h2>
+            </div>
+            <div class="text-muted">Last 24 hours</div>
+          </div>
+          <!-- ================= End Of FREE ================= -->
+          <div class="sales">
+            <span class="fas fa-chart-bar"></span>
+            <div class="middle">
+              <h3>ENTERED</h3>
+              <h2>$ 4,0001</h2>
+            </div>
+            <div class="text-muted">Last 24 hours</div>
+          </div>
+          <!-- ================= End Of ENTERED ================= -->
+        </div>
+        <div class="graphs">
+          <h2>Statistics</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Yearly</th>
+                <th>Monthly</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="chart-daily">
+                  <canvas id="myChart"></canvas>
+                </td>
+                <td id="chart-monthly">
+                  <canvas id="myChart2"></canvas>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+      <!-- ================= End Of Main ================= -->
+      <div class="right">
+        <div class="top">
+          <button class="fas fa-bars" id="menu-btn"></button>
+          <div class="profile">
+            <div class="info">
+              <p>Hey, <b id="name-user-profile"></b></p>
+              <small class="text-muted"><span>Admin</span></small>
+            </div>
+            <div class="profile-photo">
+              <img src="dashboard/assets/imgs/user-icon.png" alt="" />
+            </div>
+          </div>
+        </div>
+        <!-- End of Top -->
+        <div class="recent-orders">
+          <h2>Recent Reservations</h2>
+          <div class="reservations">
+            <div class="reservation">
+              <div class="reser-text">
+                <h3 class="reser-number1">ID : <span></span></h3>
+                <h3 class="garage-id1">Garage ID : <span id=""></span></h3>
+                <h3 class="garage-state1">
+                  Reservation Status : <span></span>
+                </h3>
+              </div>
+            </div>
+            <div class="reservation">
+              <div class="reser-text">
+                <h3 class="reser-number2">ID : <span></span></h3>
+                <h3 class="garage-id2">Garage ID : <span id=""></span></h3>
+                <h3 class="garage-state2">
+                  Reservation Status : <span></span>
+                </h3>
+              </div>
+            </div>
+            <div class="reservation">
+              <div class="reser-text">
+                <h3 class="reser-number3">ID : <span></span></h3>
+                <h3 class="garage-id3">Garage ID : <span id=""></span></h3>
+                <h3 class="garage-state3">
+                  Reservation Status : <span></span>
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="totals">
+          <h2>More info</h2>
+
+          <div class="total" id="total-payments">
+            <h3>Latest Payment : <span id="payments"></span> $</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="responsive-mob">
+      <div class="navbar">
+        <button class="fas fa-bars" id="menu-btn"></button>
+        <div class="profile">
+          <div class="info">
+            <p>Hey, <b id="name-user-profile-mob"></b></p>
+            <small class="text-muted"><span>Admin</span></small>
+          </div>
+          <div class="profile-photo">
+            <img src="dashboard/assets/imgs/user-icon.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="main">
+        <div class="boards">
+          <div class="sales">
+            <span class="fas fa-dollar-sign primary"></span>
+            <div class="middle">
+              <h3>EARNINGS (DAILY)</h3>
+              <h2>$ 4,0001</h2>
+            </div>
+            <div class="text-muted">Last 24 hours</div>
+          </div>
+          <!-- ================= End Of Daily ================= -->
+          <div class="sales">
+            <span class="fas fa-money-check-dollar danger"></span>
+            <div class="middle">
+              <h3>EARNINGS (Total)</h3>
+              <h2>$ 4,0001</h2>
+            </div>
+            <div class="text-muted">All Days</div>
+          </div>
+          <!-- ================= End Of Total ================= -->
+          <div class="sales">
+            <span class="fas fa-chart-bar"></span>
+            <div class="middle">
+              <h3>PICKED</h3>
+              <h2>$ 4,0001</h2>
+            </div>
+            <div class="text-muted">Last 24 hours</div>
+          </div>
+          <!-- ================= End Of PICKED ================= -->
+          <div class="sales">
+            <span class="fas fa-chart-bar"></span>
+            <div class="middle">
+              <h3>FREE</h3>
+              <h2>$ 4,0001</h2>
+            </div>
+            <div class="text-muted">Last 24 hours</div>
+          </div>
+          <!-- ================= End Of FREE ================= -->
+          <div class="sales">
+            <span class="fas fa-chart-bar"></span>
+            <div class="middle">
+              <h3>ENTERED</h3>
+              <h2>$ 4,0001</h2>
+            </div>
+            <div class="text-muted">Last 24 hours</div>
+          </div>
+        </div>
+        <div class="graphs-mob">
+          <h2>Statistics</h2>
+          <table>
+            <tr>
+              <th>Yearly</th>
+            </tr>
+            <tr>
+              <td id="chart-daily">
+                <canvas id="myChart3"></canvas>
+              </td>
+            </tr>
+            <tr>
+              <th>Monthly</th>
+            </tr>
+            <tr>
+              <td id="chart-monthly">
+                <canvas id="myChart4"></canvas>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section id="navbar-mobile-after-btn">
+      <a class="fas fa-xmark" id="x-btn"></a>
+      <a href="/dashboard/dashboard-profile.html">Profile</a>
+      <a href="/dashboard/reservations.html">Reservations</a>
+      <a href="/dashboard/parking.html">Parking</a>
+    </section>
+
+      
+          <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+
+    <!-- Chart Scripts -->
+    <script>
+      const ctx = document.getElementById("myChart");
+
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: [
+            "Saturday",
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Friday",
+            "Friday",
+            "Friday",
+            "Friday",
+            "Friday",
+          ],
+          datasets: [
+            {
+              label: "Money per Month",
+              data: [12, 19, 3, 5, 2, 3, 9],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+      const ctx3 = document.getElementById("myChart3");
+
+      new Chart(ctx3, {
+        type: "bar",
+        data: {
+          labels: [
+            "Saturday",
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+          ],
+          datasets: [
+            {
+              label: "Money per Month",
+              data: [12, 19, 3, 5, 2, 3, 9],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      const ctx2 = document.getElementById("myChart2");
+
+      // Generate data for 30 days
+
+      const data = Array.from({ length: 30 }, () =>
+        Math.floor(Math.random() * 20)
+      );
+
+      new Chart(ctx2, {
+        type: "line", // Use line chart instead of bar chart
+        data: {
+          labels: [
+            1, 2, 3, 4, 5, 6, 78, 987, 89, 798, 798, 79, 878, 165, 561, 651,
+            561, 561, 651, 65, 1651, 65, 165, 165, 165, 165, 1, 651, 65,
+          ],
+          datasets: [
+            {
+              label: "Money per day",
+              data: data,
+              borderWidth: 2,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+          tooltips: {
+            // Add tooltips for displaying data on hover
+            mode: "index",
+            intersect: false,
+          },
+        },
+      });
+
+      const ctx4 = document.getElementById("myChart4");
+
+      new Chart(ctx4, {
+        type: "line", // Use line chart instead of bar chart
+        data: {
+          labels: days,
+          datasets: [
+            {
+              label: "Money per day",
+              data: data,
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+          tooltips: {
+            // Add tooltips for displaying data on hover
+            mode: "index",
+            intersect: false,
+          },
+        },
+      });
+    </script>
+      <script src="js/admin/admin-dashboard.js"></script>
+      
+      
+  </body>
+</html>

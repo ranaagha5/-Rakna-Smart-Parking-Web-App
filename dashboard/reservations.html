@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./css/reservations.css" />
+    <title>Reservations</title>
+  </head>
+  <body>
+    <section id="container">
+      <div class="sidebar">
+        <div class="top-bar">
+          <a href="../u-dashboard.html" class="sidebar-btns"
+            ><span class="fas fa-chart-line"></span>
+            <h3>Dashboard</h3></a
+          >
+          <a href="./parking.html" class="sidebar-btns">
+            <span class="fas fa-signal"></span>
+            <h3>Parking</h3></a
+          >
+          <a href="#" class="sidebar-btns active"
+            ><span class="fas fa-calendar"></span>
+            <h3>Reservations</h3></a
+          >
+          <a href="../dashboard/dashboard-profile.html" class="sidebar-btns"
+            ><span class="fas fa-user"></span>
+            <h3>Profile</h3></a
+          >
+        </div>
+        <a href="#" id="logout"
+          ><span class="fas fa-power-off"></span>
+          <h3>Log Out</h3></a
+        >
+      </div>
+      <div class="page-content">
+        <div class="btns">
+          <button class="res-btn" onclick="allReservations()" id="all">
+            All Reservations
+          </button>
+          <button class="res-btn" onclick="waitReservations()" id="wait">
+            Wait Reservations
+          </button>
+          <button class="res-btn" onclick="activeReservations()" id="active">
+            Active Reservations
+          </button>
+          <button class="res-btn" onclick="doneReservations()" id="done">
+            Done Reservations
+          </button>
+          <button
+            class="res-btn"
+            onclick="canceledReservations()"
+            id="canceled"
+          >
+            Canceled Reservations
+          </button>
+        </div>
+        <div class="reservation-view">
+          <div class="res-container" id="res-container">
+            <table class="minimalistBlack" cellpadding="10">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>User Id</th>
+                  <th>Car Id</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                  <th>Parking Duration</th>
+                  <th>Parking ID</th>
+                  <th>Parking Slot ID</th>
+                  <th>Price Per Hour</th>
+                  <th>status</th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="./js/script.js"></script>
+    <script src="./js/reservations.js"></script>
+  </body>
+</html>

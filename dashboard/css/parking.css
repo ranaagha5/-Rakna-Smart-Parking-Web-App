@@ -1,0 +1,145 @@
+#err-msg-add-parking {
+  color: #ff7782;
+  font-weight: 700;
+}
+.page-content-parking {
+  background-color: white;
+  width: 100%;
+  height: 100vh;
+  margin: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.parking-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.parking-section h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.parking-cards .parking-card form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (max-width: 425px) {
+  form {
+    /* flex-direction: column; */
+    text-align: center;
+  }
+}
+.parking-section input,
+button {
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid #222;
+  color: #222;
+  font-weight: 500;
+}
+button {
+  background-color: #222;
+  color: #eee;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #eee;
+  color: #222;
+}
+button:active {
+  transform: translateY(-2px);
+}
+
+.all-parking {
+  border-radius: 1rem;
+  border: #222 solid 2px;
+  gap: 2rem;
+}
+.all-parking h2 {
+  margin-top: 1rem;
+}
+.parking-cards {
+  padding: 1rem;
+  max-height: 400px;
+  overflow-y: scroll;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  border-radius: 1rem;
+  color: #222;
+}
+.parking-card {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  border: #222 solid 2px;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+}
+
+.info-cards {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+@media screen and (max-width: 425px) {
+  .info-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.info-cards .info-card {
+  width: 90%;
+  margin: 1rem;
+  background-color: #ff7782;
+  padding: 1rem 2rem 1rem 1rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+}
+
+.info-cards .info-card span {
+  font-size: 1.2rem;
+}
+
+.payments {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+}
+
+.payments-card-container {
+  width: 100%;
+  max-height: 400px;
+  overflow-y: scroll;
+  border-radius: 1rem;
+  border: #222 1px solid;
+}
+.payments-card-container .payments-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+@media screen and (max-width: 768px) {
+  .payments-card-container .payments-cards {
+    grid-template-columns: 1fr;
+  }
+}
+.payments-card {
+  display: grid;
+  gap: 1rem;
+  font-size: 0.8rem;
+  margin: 1rem;
+  border-radius: 1rem;
+  border: #222 1px solid;
+  padding: 1rem;
+}

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin | Dashboard</title>
+      
+      
+      
+      <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./dashboard/css/main-css.css" />
+      
+      
+      
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="./admin-assets/css/style.css" />
+      <style>
+      .graphss table {
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    transition: all 300ms ease;
+    border-radius: 2rem;
+    padding: 1.8rem;
+    box-shadow: 0 2rem 3rem #848bc82e;
+          }
+          .tbody td {
+    font-size: 1.1rem;
+    height: 2.8rem;
+    border-bottom: 5px solid #848bc82e;
+    border-right: 5px solid #848bc82e;
+}
+      
+      </style>
+  </head>
+
+  <body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="#">
+              <span class="title" style="font-weight: 700">RAKNA</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="home-outline"></ion-icon>
+              </span>
+              <span class="title">Dashboard</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="people-outline"></ion-icon>
+              </span>
+              <span class="title">Customers</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="help-outline"></ion-icon>
+              </span>
+              <span class="title">Profits</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="settings-outline"></ion-icon>
+              </span>
+              <span class="title">Payments</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+              </span>
+              <span class="title">Reservations</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="log-out-outline"></ion-icon>
+              </span>
+              <span class="title" id="log-out">Sign Out</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ========================= Main ==================== -->
+      <div class="main">
+        <div class="topbar">
+          <div class="toggle">
+            <ion-icon name="menu-outline"></ion-icon>
+          </div>
+
+          <div class="user">
+            <img src="admin-assets/imgs/customer01.jpg" alt="" />
+          </div>
+        </div>
+
+        <!-- ======================= Cards ================== -->
+        <div class="cardBox">
+          <div class="card">
+            <div>
+              <div class="numbers">$<span id="day-earning-data"></span></div>
+              <div class="cardName">Total Day Profits</div>
+            </div>
+
+            <div class="iconBx">
+              <ion-icon name="cash-outline"></ion-icon>
+            </div>
+          </div>
+          <div class="card">
+            <div>
+              <div class="numbers">$<span id="earning-data"></span></div>
+              <div class="cardName">Total Earning</div>
+            </div>
+
+            <div class="iconBx">
+              <ion-icon name="cash-outline"></ion-icon>
+            </div>
+          </div>
+          <div class="card">
+            <div>
+              <div class="numbers" id="users"></div>
+              <div class="cardName">All Users</div>
+            </div>
+
+            <div class="iconBx">
+              <ion-icon name="eye-outline"></ion-icon>
+            </div>
+          </div>
+
+          <div class="card">
+            <div>
+              <div class="numbers" id="suppliers"></div>
+              <div class="cardName">All Suppliers</div>
+            </div>
+
+            <div class="iconBx">
+              <ion-icon name="eye-outline"></ion-icon>
+            </div>
+          </div>
+        </div>
+          
+          
+          
+          <!--  graph box         -->
+          <div class="graphss">
+          <h2>Statistics</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Yearly</th>
+                <th>Monthly</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="chart-daily">
+                  <canvas id="myChart" width="1050" height="525" style="display: block; box-sizing: border-box; height: 210px; width: 420px;"></canvas>
+                </td>
+                <td id="chart-monthly">
+                  <canvas id="myChart2" width="1050" height="525" style="display: block; box-sizing: border-box; height: 210px; width: 420px;"></canvas>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ================ Order Details List ================= -->
+        <div class="recentOrders">
+          <div class="details">
+            <div class="cardHeader">
+              <h2>All Suppliers with parkings</h2>
+              <a href="#" class="btn">View All</a>
+            </div>
+            <div class="suppliers" id="suppliers-container">
+              <div class="supplier supplier-header">
+                <p>ID</p>
+                <p>Parking ID</p>
+                <p>Name</p>
+                <p>Day Profits</p>
+                <p>Total Profits</p>
+                <a href="" class=""></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- See more section -->
+    <section id="see-more-section">
+      <div id="click-close" onclick="closeSeeMore()"></div>
+      <div class="see-more-card">
+        <div class="supplier-choose-parkings">
+          <select type="text" id="choose-parking-id"></select>
+          <button id="btn-to-choose" onclick="getParkingData()">
+            Get Parking Data
+          </button>
+        </div>
+        <button id="close-see-more" onclick="closeSeeMore()">X</button>
+
+        <div class="see-more-header">
+          <button class="header-btn" id="reservation-btn">Reservation</button>
+          <button class="header-btn" onclick="profits()">Profits</button>
+          <button class="header-btn" onclick="payments()">Payments</button>
+        </div>
+        <div class="see-more-body">
+          <div class="body-content">
+            <div class="reservation all-reservation">
+              <h2>All Reservation</h2>
+              <div class="reservation-card">
+                <p>Reservation ID : 1</p>
+                <p>Start Time : 1</p>
+                <p>End Time : 1</p>
+                <p>Prking Duration : 1</p>
+                <p>Prking Duration : 1</p>
+                <p>Discount : 1</p>
+                <p>Status : 1</p>
+                <p>Price Per Hour : 1</p>
+                <p>User ID : 1</p>
+                <p>Car ID : 1</p>
+                <p>Parking ID : 1</p>
+                <p>Parking Slot ID : 1</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- See more section -->
+    <!-- =========== Scripts =========  -->
+   
+      <script src="admin-assets/js/main.js"></script>
+
+    <!-- ====== ionicons ======= -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+      
+   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+
+    <!-- Chart Scripts -->
+    <script>
+      const ctx = document.getElementById("myChart");
+
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: [
+            "Saturday",
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Friday",
+            "Friday",
+            "Friday",
+            "Friday",
+            "Friday",
+          ],
+          datasets: [
+            {
+              label: "Money per Month",
+              data: [12, 19, 3, 5, 2, 3, 9],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+      const ctx3 = document.getElementById("myChart3");
+
+      new Chart(ctx3, {
+        type: "bar",
+        data: {
+          labels: [
+            "Saturday",
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+          ],
+          datasets: [
+            {
+              label: "Money per Month",
+              data: [12, 19, 3, 5, 2, 3, 9],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      const ctx2 = document.getElementById("myChart2");
+
+      // Generate data for 30 days
+
+      const data = Array.from({ length: 30 }, () =>
+        Math.floor(Math.random() * 20)
+      );
+
+      new Chart(ctx2, {
+        type: "line", // Use line chart instead of bar chart
+        data: {
+          labels: [
+            1, 2, 3, 4, 5, 6, 78, 987, 89, 798, 798, 79, 878, 165, 561, 651,
+            561, 561, 651, 65, 1651, 65, 165, 165, 165, 165, 1, 651, 65,
+          ],
+          datasets: [
+            {
+              label: "Money per day",
+              data: data,
+              borderWidth: 2,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+          tooltips: {
+            // Add tooltips for displaying data on hover
+            mode: "index",
+            intersect: false,
+          },
+        },
+      });
+
+      const ctx4 = document.getElementById("myChart4");
+
+      new Chart(ctx4, {
+        type: "line", // Use line chart instead of bar chart
+        data: {
+          labels: days,
+          datasets: [
+            {
+              label: "Money per day",
+              data: data,
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+          tooltips: {
+            // Add tooltips for displaying data on hover
+            mode: "index",
+            intersect: false,
+          },
+        },
+      });
+    </script>
+    <script src="dashboard/js/script.js"></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

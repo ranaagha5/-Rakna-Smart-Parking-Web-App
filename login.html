@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      /* 
+ * Always set the map height explicitly to define the size of the section element
+ * that contains the map. 
+ */
+      #map {
+        height: 100%;
+      }
+
+      /* 
+ * Optional: Makes the sample page fill the window. 
+ */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        background-color: #fff;
+        border: 0;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+        margin: 10px;
+        padding: 0 0.5em;
+        font: 400 18px Roboto, Arial, sans-serif;
+        overflow: hidden;
+        font-family: Roboto;
+        padding: 0;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+      }
+
+      #target {
+        width: 345px;
+      }
+    </style>
+
+    <script>
+      // This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+      function initAutocomplete() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: -33.8688, lng: 151.2195 },
+          zoom: 13,
+          mapTypeId: "roadmap",
+        });
+        // Create the search box and link it to the UI element.
+        const input = document.getElementById("pac-input");
+        const searchBox = new google.maps.places.SearchBox(input);
+
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener("bounds_changed", () => {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        let markers = [];
+
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener("places_changed", () => {
+          const places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach((marker) => {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          const bounds = new google.maps.LatLngBounds();
+
+          places.forEach((place) => {
+            if (!place.geometry || !place.geometry.location) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+
+            const icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25),
+            };
+
+            // Create a marker for each place.
+            markers.push(
+              new google.maps.Marker({
+                map,
+                icon,
+                title: place.name,
+                position: place.geometry.location,
+              })
+            );
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
+
+      window.initAutocomplete = initAutocomplete;
+    </script>
+
+    <meta charset="utf-8" />
+    <title>Rakna Parknig</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="Free HTML Templates" name="keywords" />
+    <meta content="Free HTML Templates" name="description" />
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link
+      href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/all.min.css" rel="stylesheet" />
+    <link href="css/bootstrap-grid.min.css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <!-- maps script -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script type="module" src="./index.js"></script>
+    <!-- end -->
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/style2.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <!-- Topbar Start -->
+    <section class="container-fluid bg-dark py-3 px-lg-5 d-none d-lg-block">
+      <section class="row">
+        <section class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
+          <section class="d-inline-flex align-items-center">
+            <a class="text-body pr-3" href=""
+              ><i class="fa fa-phone-alt mr-2"></i>+012 345 6789</a
+            >
+            <span class="text-body">|</span>
+            <a class="text-body px-3" href=""
+              ><i class="fa fa-envelope mr-2"></i>rakna_info@example.com</a
+            >
+          </section>
+        </section>
+        <section class="col-md-6 text-center text-lg-right nav-icon">
+          <section class="d-inline-flex align-items-center nav-icon-link">
+            <a class="text-body px-3" href="">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a class="text-body px-3" href="">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a class="text-body px-3" href="">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a class="text-body px-3" href="">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a class="text-body pl-3" href="">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </section>
+        </section>
+      </section>
+    </section>
+    <!-- Topbar End -->
+
+    <!-- Navbar Start -->
+    <section class="container-fluid position-relative nav-bar p-0">
+      <section class="position-relative px-lg-5" style="z-index: 9">
+        <nav
+          class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5"
+        >
+          <a href="" class="navbar-brand">
+            <h1 class="text-uppercase text-primary mb-1">Rakna Parking</h1>
+          </a>
+          <button
+            type="button"
+            class="navbar-toggler"
+            data-toggle="collapse"
+            data-target="#navbarCollapse"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <section
+            class="collapse navbar-collapse justify-content-between px-3"
+            id="navbarCollapse"
+          >
+            <section class="navbar-nav ml-auto py-0">
+              <a href="index.html" class="nav-item nav-link active">Home</a>
+              <a href="about.html" class="nav-item nav-link">About</a>
+              <a href="service.html" class="nav-item nav-link">Service</a>
+              <section class="nav-item dropdown">
+                <a
+                  href="#"
+                  class="nav-link dropdown-toggle"
+                  data-toggle="dropdown"
+                  >Cars</a
+                >
+                <section class="dropdown-menu rounded-0 m-0">
+                  <a href="car.html" class="dropdown-item">Car Listing</a>
+                  <a href="detail.html" class="dropdown-item">Car Detail</a>
+                  <a href="booking.html" class="dropdown-item">Car Booking</a>
+                </section>
+              </section>
+              <section class="nav-item dropdown">
+                <a
+                  href="#"
+                  class="nav-link dropdown-toggle"
+                  data-toggle="dropdown"
+                  >Pages</a
+                >
+                <section class="dropdown-menu rounded-0 m-0">
+                  <a href="team.html" class="dropdown-item">The Team</a>
+                  <a href="testimonial.html" class="dropdown-item"
+                    >Testimonial</a
+                  >
+                </section>
+              </section>
+              <a href="contact.html" class="nav-item nav-link">Contact</a>
+            </section>
+          </section>
+        </nav>
+      </section>
+    </section>
+
+    <!-- Carousel Start -->
+    <section class="container-fluid p-0" style="margin-bottom: 90px">
+      <!-- Login Start -->
+
+      <section class="container">
+        <section class="screen" style="margin-top: 50px">
+          <section class="screen__content">
+            <form class="login">
+              <h3
+                id="error-msg"
+                style="
+                  font-size: 16px !important;
+                  color: rgba(255, 100, 100, 0.704) !important;
+                "
+              ></h3>
+              <section class="login__field">
+                <i class="login__icon fas fa-user"></i>
+                <input
+                  id="email"
+                  type="text"
+                  class="login__input"
+                  placeholder="Email"
+                />
+              </section>
+              <section class="login__field">
+                <i class="login__icon fas fa-lock"></i>
+                <input
+                  id="password"
+                  type="password"
+                  class="login__input"
+                  placeholder="Password"
+                />
+              </section>
+              <button id="btn-submit-login" class="button login__submit">
+                <span class="button__text">Log In Now</span>
+                <i class="button__icon fas fa-chevron-right"></i>
+              </button>
+            </form>
+            <section class="social-login">
+              <h3>log in via</h3>
+              <section class="social-icons">
+                <a href=""
+                  ><i class="spetial_icon social-login__icon fab fa-gofore"></i
+                ></a>
+                <a
+                  href="#"
+                  class="social-login__icon fab fa-facebook margin5pxr"
+                ></a>
+                <a href=""
+                  ><i class="spetial_icon2 social-login__icon fab fa-apple"></i
+                ></a>
+              </section>
+            </section>
+            <section class="create_account sp_ph">
+              <p style="color: white !important">
+                Create an account<a
+                  href="regestrition.html"
+                  style="color: #4c489d"
+                  ><span style="color: #000; font-weight: 700">
+                    Sign up
+                  </span></a
+                >
+              </p>
+            </section>
+          </section>
+          <section class="screen__background">
+            <span
+              class="screen__background__shape screen__background__shape4"
+            ></span>
+            <span
+              class="screen__background__shape screen__background__shape3"
+            ></span>
+            <span
+              class="screen__background__shape screen__background__shape2"
+            ></span>
+            <span
+              class="screen__background__shape screen__background__shape1"
+            ></span>
+          </section>
+        </section>
+      </section>
+
+      <!-- Login End -->
+
+      <!-- Contact Start -->
+      <section class="container-fluid py-5">
+        <section class="container pt-5 pb-3" style="display: block">
+          <h1 class="display-4 text-uppercase text-center mb-5">Contact Us</h1>
+          <section class="row">
+            <section class="col-lg-7 mb-2">
+              <section class="contact-form bg-light mb-4" style="padding: 30px">
+                <form>
+                  <section class="row">
+                    <section class="col-6 form-group">
+                      <input
+                        type="text"
+                        class="form-control p-4"
+                        placeholder="Your Name"
+                        required="required"
+                      />
+                    </section>
+                    <section class="col-6 form-group">
+                      <input
+                        type="email"
+                        class="form-control p-4"
+                        placeholder="Your Email"
+                        required="required"
+                      />
+                    </section>
+                  </section>
+                  <section class="form-group">
+                    <input
+                      type="text"
+                      class="form-control p-4"
+                      placeholder="Subject"
+                      required="required"
+                    />
+                  </section>
+                  <section class="form-group">
+                    <textarea
+                      class="form-control py-3 px-4"
+                      rows="5"
+                      placeholder="Message"
+                      required="required"
+                    ></textarea>
+                  </section>
+                  <section>
+                    <button class="btn btn-primary py-3 px-5" type="submit">
+                      Send Message
+                    </button>
+                  </section>
+                </form>
+              </section>
+            </section>
+            <section class="col-lg-5 mb-2">
+              <section
+                class="bg-secondary d-flex flex-column justify-content-center px-5 mb-4"
+                style="height: 435px"
+              >
+                <section class="d-flex mb-3">
+                  <i
+                    class="fa fa-2x fa-map-marker-alt text-primary flex-shrink-0 mr-3"
+                  ></i>
+                  <section class="mt-n1">
+                    <h5 class="text-light">Head Office</h5>
+                    <p>123 Street, New York, USA</p>
+                  </section>
+                </section>
+                <section class="d-flex mb-3">
+                  <i
+                    class="fa fa-2x fa-map-marker-alt text-primary flex-shrink-0 mr-3"
+                  ></i>
+                  <section class="mt-n1">
+                    <h5 class="text-light">Branch Office</h5>
+                    <p>123 Street, New York, USA</p>
+                  </section>
+                </section>
+                <section class="d-flex mb-3">
+                  <i
+                    class="fa fa-2x fa-envelope-open text-primary flex-shrink-0 mr-3"
+                  ></i>
+                  <section class="mt-n1">
+                    <h5 class="text-light">Customer Service</h5>
+                    <p>customer@example.com</p>
+                  </section>
+                </section>
+                <section class="d-flex">
+                  <i
+                    class="fa fa-2x fa-envelope-open text-primary flex-shrink-0 mr-3"
+                  ></i>
+                  <section class="mt-n1">
+                    <h5 class="text-light">Return & Refund</h5>
+                    <p class="m-0">refund@example.com</p>
+                  </section>
+                </section>
+              </section>
+            </section>
+          </section>
+        </section>
+      </section>
+      <!-- Contact End -->
+
+      <!-- Footer Start -->
+      <section
+        class="container-fluid bg-secondary py-5 px-sm-3 px-md-5"
+        style="margin-top: 90px"
+      >
+        <section class="row pt-5">
+          <section class="col-lg-3 col-md-6 mb-5">
+            <h4 class="text-uppercase text-light mb-4">Get In Touch</h4>
+            <p class="mb-2">
+              <i class="fa fa-map-marker-alt text-white mr-3"></i>9412, Hadba
+              Wosta, Mokattam, Cairo
+            </p>
+            <p class="mb-2">
+              <i class="fa fa-phone-alt text-white mr-3"></i>+01144678180
+            </p>
+            <p><i class="fa fa-envelope text-white mr-3"></i>ranaagha50.com</p>
+            <h6 class="text-uppercase text-white py-2">Follow Us</h6>
+            <section class="d-flex justify-content-start">
+              <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+              <a class="btn btn-lg btn-dark btn-lg-square" href="#"
+                ><i class="fab fa-instagram"></i
+              ></a>
+            </section>
+          </section>
+          <section class="col-lg-3 col-md-6 mb-5">
+            <h4 class="text-uppercase text-light mb-4">Usefull Links</h4>
+            <section class="d-flex flex-column justify-content-start">
+              <a class="text-body mb-2" href="#"
+                ><i class="fa fa-angle-right text-white mr-2"></i>Private
+                Policy</a
+              >
+              <a class="text-body mb-2" href="#"
+                ><i class="fa fa-angle-right text-white mr-2"></i>Term &
+                Conditions</a
+              >
+              <a class="text-body mb-2" href="#"
+                ><i class="fa fa-angle-right text-white mr-2"></i>New Member
+                Registration</a
+              >
+              <a class="text-body mb-2" href="#"
+                ><i class="fa fa-angle-right text-white mr-2"></i>Affiliate
+                Programme</a
+              >
+              <a class="text-body mb-2" href="#"
+                ><i class="fa fa-angle-right text-white mr-2"></i>Return &
+                Refund</a
+              >
+              <a class="text-body" href="#"
+                ><i class="fa fa-angle-right text-white mr-2"></i>Help & FQAs</a
+              >
+            </section>
+          </section>
+          <section class="col-lg-3 col-md-6 mb-5">
+            <h4 class="text-uppercase text-light mb-4">Car Gallery</h4>
+            <section class="row mx-n1">
+              <section class="col-4 px-1 mb-2">
+                <a href="img/pexels1%20(1).jpg"
+                  ><img class="w-100" src="img/pexels1%20(1).jpg" alt=""
+                /></a>
+              </section>
+              <section class="col-4 px-1 mb-2">
+                <a href="img/pexels1%20(2).jpg"
+                  ><img class="w-100" src="img/pexels1%20(2).jpg" alt=""
+                /></a>
+              </section>
+              <section class="col-4 px-1 mb-2">
+                <a href="img/pexels-erik-mclean-5214397.jpg"
+                  ><img
+                    class="w-100"
+                    src="img/pexels-erik-mclean-5214397.jpg"
+                    alt=""
+                /></a>
+              </section>
+              <section class="col-4 px-1 mb-2 sm">
+                <a href="img/pexels-tim-samuel-5834946.jpg"
+                  ><img
+                    class="w-100"
+                    src="img/pexels-tim-samuel-5834946.jpg"
+                    alt=""
+                /></a>
+              </section>
+              <section class="col-4 px-1 mb-2 sm">
+                <a href="img/pexels-brett-sayles-1756957.jpg"
+                  ><img
+                    class="w-100"
+                    src="img/pexels-brett-sayles-1756957.jpg"
+                    alt=""
+                /></a>
+              </section>
+              <section class="col-4 px-1 mb-2 sm">
+                <a href="img/pexels-pok-rie-1004409.jpg"
+                  ><img
+                    class="w-100"
+                    src="img/pexels-pok-rie-1004409.jpg"
+                    alt=""
+                /></a>
+              </section>
+            </section>
+          </section>
+          <section class="col-lg-3 col-md-6 mb-5">
+            <h4 class="text-uppercase text-light mb-4">Newsletter</h4>
+            <p class="mb-4">
+              Volup amet magna clita tempor. Tempor sea eos vero ipsum. Lorem
+              lorem sit sed elitr sed kasd et
+            </p>
+            <section class="w-100 mb-3">
+              <section class="input-group">
+                <input
+                  type="text"
+                  class="form-control bg-dark border-dark"
+                  style="padding: 25px"
+                  placeholder="Your Email"
+                />
+                <section class="input-group-append">
+                  <button class="btn btn-primary text-uppercase px-3">
+                    Sign Up
+                  </button>
+                </section>
+              </section>
+            </section>
+            <i>Lorem sit sed elitr sed kasd et</i>
+          </section>
+        </section>
+      </section>
+      <section class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
+        <p class="mb-2 text-center text-body">
+          &copy; <a href="#">Rakna Parking</a>. All Rights Reserved.
+        </p>
+        <p class="m-0 text-center text-body">
+          Designed by
+          <a href="https://www.behance.net/ranaagha" target="_blank"
+            >Rana Agha</a
+          >
+        </p>
+      </section>
+      <!-- Footer End -->
+    </section>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
+      ><i class="fa fa-angle-double-up"></i
+    ></a>
+
+    <!-- JavaScript Libraries -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/udm/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/all.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initAutocomplete&libraries=places&v=weekly"
+      defer
+    ></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    <!-- Login logic -->
+    <script src="js/login.js"></script>
+  </body>
+</html>
